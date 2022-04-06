@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios'
 
 import { AppContainer } from './AppStyles.js'
@@ -7,19 +7,24 @@ import { Scoreboard } from './components/Scoreboard.js'
 import { SubmissionForm } from './components/SubmissionForm.js';
 
 export const App = () => {
+  const [teamData, setTeamData] = useState([])
 
-  useEffect(() => {
-    axios.get("/.netlify/functions/get-team-data").then(response =>{
-      console.log(response.data)
-    }).catch(error => {
+  useEffect(async () => {
+    try {
+      const response = await axios.get("/.netlify/functions/get-team-data")
+      setTeamData(response.data)
+    } catch (error) {
       console.log(error.toJSON())
-    })
+    }
   }, [])
 
   return (
-    <AppContainer>
-      <SubmissionForm />
-      <Scoreboard />
-    </AppContainer>
+      <AppContainer>
+          <SubmissionForm 
+            teamNames={teamData.map(team => team.name)}
+            setTeamData={setTeamData}
+          />
+          <Scoreboard teams={teamData} />
+      </AppContainer>
   );
 }

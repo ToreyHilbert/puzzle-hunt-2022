@@ -1,28 +1,12 @@
 import { ScoreboardContainer } from './ScoreboardStyles'
 
-export const Scoreboard = () => {
-    const teams = [
-        {
-            "name" : "Tensor",
-            "points" : 5,
-            "solved" : [
-                0, 0, 0, 1, 1, 
-                0, 1, 0, 1, 0,
-                0, 1, 1, 0, 0,
-                0, 0, 1, 1, 1,
-            ]
-        },
-        {
-            "name" : "Other",
-            "points" : 1,
-            "solved" : [
-                1, 0, 0, 1, 0, 
-                0, 0, 0, 1, 0,
-                0, 1, 0, 0, 1,
-                0, 0, 0, 1, 1,
-            ]
-        },
-    ]
+export const Scoreboard = (props) => {
+    console.log(props)
+    const computedTeams = props.teams.map(team => ({
+        ...team,
+        points : team["submitted_puzzles"] + team["solved_puzzles"].reduce((prev, next) => prev + next, 0)
+    }))
+
     return (
         <ScoreboardContainer>
             <table>
@@ -50,11 +34,11 @@ export const Scoreboard = () => {
                     <th>#19</th>
                     <th>#20</th>
                 </tr>
-                {teams.map((team, i) =>
+                {computedTeams.map((team, i) =>
                     <tr key = {i}>
                         <td>{team["name"]}</td>
                         <td>{team["points"]}</td>
-                        {team["solved"].map((val, j) => 
+                        {team["solved_puzzles"].map((val, j) => 
                             <td>{val}</td>
                         )}
                     </tr>
