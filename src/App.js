@@ -5,6 +5,8 @@ import { Container, Stack, Typography } from '@mui/material'
 import { Scoreboard } from './components/Scoreboard.js'
 import { SubmissionForm } from './components/SubmissionForm.js';
 
+import audioPuzzle from './assets/PuzzleHunt2022-Puzzle08.mp3'
+
 export const App = () => {
   const [teamData, setTeamData] = useState([])
 
@@ -24,6 +26,10 @@ export const App = () => {
         <Stack spacing={2}>
             <Typography variant="h4">Puzzle Hunt 2022</Typography>
             <Scoreboard teams={teamData} />
+            <Typography variant="body1">The following audio is the clue for puzzle #08.</Typography>
+            <audio controls>
+              <source src={audioPuzzle} type="audio/mpeg" />
+            </audio>
             <Typography variant="body1">If you've arrived at the location of the solution for a puzzle, you should find a sticker stuck to something with a short phrase. Enter the phrase below to record your team's success!</Typography>
             <SubmissionForm 
               teamNames={teamData.map(team => team.name)}
