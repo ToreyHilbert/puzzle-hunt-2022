@@ -1,4 +1,10 @@
-import { ScoreboardContainer } from './ScoreboardStyles'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 export const Scoreboard = (props) => {
     console.log(props)
@@ -7,43 +13,53 @@ export const Scoreboard = (props) => {
         points : team["submitted_puzzles"] + team["solved_puzzles"].reduce((prev, next) => prev + next, 0)
     }))
 
+    const rows = [
+        ["", ...computedTeams.map(team => team.name)],
+        ["Points", ...computedTeams.map(team => team.points)],
+        ["#01", ...computedTeams.map(team => team.solved_puzzles[0])],
+        ["#02", ...computedTeams.map(team => team.solved_puzzles[1])],
+        ["#03", ...computedTeams.map(team => team.solved_puzzles[2])],
+        ["#04", ...computedTeams.map(team => team.solved_puzzles[3])],
+        ["#05", ...computedTeams.map(team => team.solved_puzzles[4])],
+        ["#06", ...computedTeams.map(team => team.solved_puzzles[5])],
+        ["#07", ...computedTeams.map(team => team.solved_puzzles[6])],
+        ["#08", ...computedTeams.map(team => team.solved_puzzles[7])],
+        ["#09", ...computedTeams.map(team => team.solved_puzzles[8])],
+        ["#10", ...computedTeams.map(team => team.solved_puzzles[9])],
+        ["#11", ...computedTeams.map(team => team.solved_puzzles[10])],
+        ["#12", ...computedTeams.map(team => team.solved_puzzles[11])],
+        ["#13", ...computedTeams.map(team => team.solved_puzzles[12])],
+        ["#14", ...computedTeams.map(team => team.solved_puzzles[13])],
+        ["#15", ...computedTeams.map(team => team.solved_puzzles[14])],
+        ["#16", ...computedTeams.map(team => team.solved_puzzles[15])],
+        ["#17", ...computedTeams.map(team => team.solved_puzzles[16])],
+        ["#18", ...computedTeams.map(team => team.solved_puzzles[17])],
+        ["#19", ...computedTeams.map(team => team.solved_puzzles[18])],
+        ["#20", ...computedTeams.map(team => team.solved_puzzles[19])],
+    ]
+
     return (
-        <ScoreboardContainer>
-            <table>
-                <tr>
-                    <th>Team name</th>
-                    <th>Points</th>
-                    <th>#01</th>
-                    <th>#02</th>
-                    <th>#03</th>
-                    <th>#04</th>
-                    <th>#05</th>
-                    <th>#06</th>
-                    <th>#07</th>
-                    <th>#08</th>
-                    <th>#09</th>
-                    <th>#10</th>
-                    <th>#11</th>
-                    <th>#12</th>
-                    <th>#13</th>
-                    <th>#14</th>
-                    <th>#15</th>
-                    <th>#16</th>
-                    <th>#17</th>
-                    <th>#18</th>
-                    <th>#19</th>
-                    <th>#20</th>
-                </tr>
-                {computedTeams.map((team, i) =>
-                    <tr key = {i}>
-                        <td>{team["name"]}</td>
-                        <td>{team["points"]}</td>
-                        {team["solved_puzzles"].map((val, j) => 
-                            <td>{val}</td>
-                        )}
-                    </tr>
-                )}
-            </table>
-        </ScoreboardContainer>
-    );
+        <TableContainer component = {Paper}>
+            <Table sx = {{minWidth: 500}}>
+                <TableHead>
+                    <TableRow>
+                        {
+                            rows[0].map((colname, i) => (
+                                <TableCell key={i}>{colname}</TableCell>)
+                            )
+                        }
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.slice(1).map((row, i) => (
+                        <TableRow key={i}>
+                            {row.map((val, j) => (
+                                <TableCell key={j}>{val}</TableCell>
+                            ))}
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    )
 }

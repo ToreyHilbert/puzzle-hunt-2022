@@ -1,14 +1,25 @@
 import { useState } from 'react'
-import { SubmissionFormButton, SubmissionFormContainer, SubmissionFormInput, SubmissionFormTeamSelect } from './SubmissionFormStyled'
+import { 
+    Card,
+    CardContent,
+    Stack,
+    TextField,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    Button
+} from '@mui/material'
+
 
 import axios from 'axios'
 
 export const SubmissionForm = ({ teamNames, setTeamData }) => {
     const [phraseText, setPhraseText] = useState("")
-    const [selectedTeam, setSelectedTeam] = useState(null);
+    const [selectedTeam, setSelectedTeam] = useState('');
 
     const submitForm = async () => {
-        if (selectedTeam == null) {
+        if (selectedTeam === "") {
             return
         }
 
@@ -29,20 +40,37 @@ export const SubmissionForm = ({ teamNames, setTeamData }) => {
     }
 
     return (
-        <SubmissionFormContainer>
-            <SubmissionFormInput 
-                type="text"
-                placeholder="Enter a phrase"
-                value={phraseText}
-                onChange={event => setPhraseText(event.target.value)}
-            />
-            <SubmissionFormTeamSelect onChange={event => setSelectedTeam(event.target.value)}>
-                <option disabled selected value={null}>-- Select your team --</option>
-                {teamNames.map((team, i) =>
-                    <option key={i} value={team}>{team}</option>
-                )}
-            </SubmissionFormTeamSelect>
-            <SubmissionFormButton onClick={submitForm}>Submit!</SubmissionFormButton>
-        </SubmissionFormContainer>
-    );
+        <Card>
+            <CardContent>
+                <Stack spacing={2}>
+                    <TextField 
+                        sx={{minWidth: 300}}
+                        label="Solution phrase"
+                        variant="standard"
+                        value={phraseText}
+                        onChange={event => setPhraseText(event.target.value)}
+                    />
+                    <FormControl sx={{minWidth: 300}}>
+                        <InputLabel id="team-select-label">Selected team</InputLabel>
+                        <Select
+                            labelId="team-select-label"
+                            value={selectedTeam}
+                            label="Team"
+                            onChange={event => setSelectedTeam(event.target.value)}
+                        >
+                            {teamNames.map((team, i) =>
+                                <MenuItem key={i} value={team}>{team}</MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+                    <Button 
+                        variant="contained"
+                        onClick={submitForm}
+                    >
+                        Submit!
+                    </Button>
+                </Stack>
+            </CardContent>
+        </Card>
+    )
 }
