@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { 
+    Alert,
+    Snackbar,
     Card,
     CardContent,
     Stack,
@@ -16,7 +18,24 @@ import axios from 'axios'
 
 export const SubmissionForm = ({ teamNames, setTeamData }) => {
     const [phraseText, setPhraseText] = useState("")
-    const [selectedTeam, setSelectedTeam] = useState('');
+    const [selectedTeam, setSelectedTeam] = useState("");
+
+    const [snackbarState, setSnackbarState] = useState({
+        open: false,
+        severity: "error",
+        message: "",
+    });
+  
+    const handleSnackbarClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setSnackbarState({
+        ...snackbarState,
+          open: false,
+      })
+    };
 
     const submitForm = async () => {
         if (selectedTeam === "") {
@@ -32,15 +51,38 @@ export const SubmissionForm = ({ teamNames, setTeamData }) => {
                 phrase: submittedPhraseText,
             })
 
+            setSnackbarState({
+                open: true,
+                severity: "success",
+                message: "Success!"
+            })
             setTeamData(response.data)
         } catch (error) {
-            console.log("Error in submission form!", error)
+            console.log("Error in submission form!", error.response)
+
+            setSnackbarState({
+                open: true,
+                severity: "error",
+                message: error.response.data.message,
+            })
         }
 
     }
 
     return (
         <Card>
+            <Snackbar 
+                open={snackbarState.open}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+            >
+                <Alert
+                    onClose={handleSnackbarClose}
+                    severity={snackbarState.severity}
+                >
+                    {snackbarState.message}
+                </Alert>
+            </Snackbar>
             <CardContent>
                 <Stack spacing={2}>
                     <TextField 

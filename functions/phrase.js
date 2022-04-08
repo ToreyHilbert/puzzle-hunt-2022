@@ -102,7 +102,7 @@ exports.handler = async (event, context, callback) => {
             return {
                 statusCode: 400,
                 body: JSON.stringify({
-                    message: "Phrase is valid, but this team has already solved this problem!",
+                    message: "Phrase is valid, but this team has already solved this puzzle!",
                     phrase: data.phrase,
                     puzzleNum: puzzleNum,
                 })
