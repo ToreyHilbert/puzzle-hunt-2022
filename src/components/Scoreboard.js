@@ -5,17 +5,24 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Accordion from '@mui/material/Accordion';
+import React from 'react';
+import { AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 
 export const Scoreboard = (props) => {
     console.log(props)
     const computedTeams = props.teams.map(team => ({
         ...team,
-        points : team["submitted_puzzles"] + team["solved_puzzles"].reduce((prev, next) => prev + next, 0)
+        points : team.submitted_puzzles + team.solved_puzzles.reduce((prev, next) => prev + next, 0),
+        num_first : team.solved_puzzles.filter(num => num === 2).length,
+        num_solved : team.solved_puzzles.filter(num => num > 0).length,
     }))
 
     const rows = [
         ["", ...computedTeams.map(team => team.name)],
-        ["Points", ...computedTeams.map(team => team.points)],
         ["#01", ...computedTeams.map(team => team.solved_puzzles[0])],
         ["#02", ...computedTeams.map(team => team.solved_puzzles[1])],
         ["#03", ...computedTeams.map(team => team.solved_puzzles[2])],
@@ -39,27 +46,66 @@ export const Scoreboard = (props) => {
     ]
 
     return (
-        <TableContainer component = {Paper}>
-            <Table sx = {{minWidth: 500}}>
-                <TableHead>
-                    <TableRow>
-                        {
-                            rows[0].map((colname, i) => (
-                                <TableCell key={i}>{colname}</TableCell>)
-                            )
-                        }
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.slice(1).map((row, i) => (
-                        <TableRow key={i}>
-                            {row.map((val, j) => (
-                                <TableCell key={j}>{val}</TableCell>
-                            ))}
+        <React.Fragment>
+            <TableContainer component={Paper}>
+                <Table sx={{minWidth : 120}}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell>#Solved</TableCell>
+                            <TableCell>#First Solved</TableCell>
+                            <TableCell>#Points</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            computedTeams.map((team, i) => (
+                                <TableRow key={i}>
+                                    <TableCell>{team.name}</TableCell>
+                                    <TableCell sx={"text-align:right;"}>{team.num_solved}</TableCell>
+                                    <TableCell sx={"text-align:right;"}>{team.num_first}</TableCell>
+                                    <TableCell sx={"text-align:right;"}>{team.points}</TableCell>
+                                </TableRow>
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <Accordion>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography>Full list of solved puzzles</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <TableContainer component = {Paper}>
+                        <Table size="small"  sx = {{ minWidth: 50 }}>
+                            <TableHead>
+                                <TableRow>
+                                    {
+                                        rows[0].map((colname, i) => (
+                                            <TableCell sx={"text-align:right;"} key={i}>{colname}</TableCell>)
+                                        )
+                                    }
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.slice(1).map((row, i) => (
+                                    <TableRow sx={{ background: row.filter(val => val > 0).length > 0 ? "#D3EFDE" : "#FFFFD0" }} key={i}>
+                                        {row.map((val, j) => (
+                                            <TableCell
+                                                sx={j === 0 ? "text-align:left;" : "text-align:right;"}
+                                                key={j}
+                                            >
+                                                {val}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </AccordionDetails>
+                
+            </Accordion>
+        </React.Fragment>
     )
 }
