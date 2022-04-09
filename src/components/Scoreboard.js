@@ -52,9 +52,9 @@ export const Scoreboard = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell>#Solved</TableCell>
-                            <TableCell>#First Solved</TableCell>
-                            <TableCell>#Points</TableCell>
+                            <TableCell sx={"text-align:right;"}>#Solved</TableCell>
+                            <TableCell sx={"text-align:right;"}>#First Solved</TableCell>
+                            <TableCell sx={"text-align:right;"}>#Points</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -77,7 +77,7 @@ export const Scoreboard = (props) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <TableContainer component = {Paper}>
-                        <Table size="small"  sx = {{ minWidth: 50 }}>
+                        <Table size="small" sx = {{ minWidth: 50 }}>
                             <TableHead>
                                 <TableRow>
                                     {

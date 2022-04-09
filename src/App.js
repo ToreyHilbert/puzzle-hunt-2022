@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'
-import { Accordion, AccordionDetails, AccordionSummary, Container, Stack, Typography } from '@mui/material'
+import { Container, Stack, Typography } from '@mui/material'
 
 import { Scoreboard } from './components/Scoreboard.js'
 import { SubmissionForm } from './components/SubmissionForm.js';
+import { PuzzleClues } from './components/PuzzleClues.js';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import audioPuzzle from './assets/PuzzleHunt2022-Puzzle08.mp3'
 
 export const App = () => {
   const [teamData, setTeamData] = useState([])
@@ -30,7 +29,9 @@ export const App = () => {
             <Typography variant="body1">
               Welcome to the Puzzle Hunt 2022 page!<br/>
               <a
-                href=""
+                href="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022-media/main/PuzzleHunt2022-Packet.pdf"
+                rel="noreferrer noopener"
+                target="_blank"
                 download
               >
                 Here is a PDF with the puzzles.
@@ -49,28 +50,7 @@ export const App = () => {
             <Scoreboard teams={teamData} />
             
             <Typography variant="h6">Some clues for puzzles</Typography>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-              >
-                <Typography>Puzzle #07</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-              >
-                <Typography>Puzzle #08</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <audio controls>
-                  <source src={audioPuzzle} type="audio/mpeg" />
-                </audio>
-              </AccordionDetails>
-            </Accordion>
+            <PuzzleClues />
 
             <Typography variant="h6">What is this?</Typography>
             <Typography variant="body1">The Puzzle Hunt is an event at OSU originally hosted by two math students, Dennis Sweeney and Rushil Raghavan, in early 2020. This year, Oscar Coppola, Jay Ozello, and Torey Hilbert are bringing back the tradition by hosting another Puzzle Hunt. Participants receive a packet of 20 puzzles that point to some location on campus. After solving a puzzle, they travel to the location and find a secret phrase that they enter here. The event takes place across the majority of OSU campus east of the Olentangy.</Typography>
