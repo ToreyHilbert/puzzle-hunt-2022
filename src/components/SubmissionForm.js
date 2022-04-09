@@ -42,6 +42,16 @@ export const SubmissionForm = ({ teamNames, setTeamData }) => {
             return
         }
 
+        if (phraseText === "Example Text") {
+            setSnackbarState({
+                open: true,
+                severity: "info",
+                message: "You successfully submitted the example phrase!"
+            })
+
+            return
+        }
+
         const submittedPhraseText = phraseText
         setPhraseText("")
 

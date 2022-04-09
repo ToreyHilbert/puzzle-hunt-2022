@@ -1,6 +1,14 @@
 import React from 'react'
 import { Accordion, AccordionDetails, AccordionSummary, Typography, Stack } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+const StyledStack = styled(Stack)(_ => ({
+    '> img' : {
+        width: "100%",
+        height: "auto",
+    }
+}))
 
 export const PuzzleClues = () => {
   return (
@@ -12,7 +20,7 @@ export const PuzzleClues = () => {
                 <Typography>Puzzle #07</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Stack spacing={2}>
+                <StyledStack spacing={2}>
                     <img
                         alt="puzzle-07-pic-1"
                         src="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022-media/main/PuzzleHunt2022-Puzzle07-1.jpg"
@@ -25,7 +33,7 @@ export const PuzzleClues = () => {
                         alt="puzzle-07-pic-3"
                         src="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022-media/main/PuzzleHunt2022-Puzzle07-3.jpg"
                     />
-                </Stack>
+                </StyledStack>
             </AccordionDetails>
         </Accordion>
         <Accordion>
