@@ -23,15 +23,15 @@ export const PuzzleClues = () => {
                 <StyledStack spacing={2}>
                     <img
                         alt="puzzle-07-pic-1"
-                        src="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022-media/main/PuzzleHunt2022-Puzzle07-1.jpg"
+                        src="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022/main/assets/PuzzleHunt2022-Puzzle07-1.jpg"
                     />
                     <img
                         alt="puzzle-07-pic-2"
-                        src="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022-media/main/PuzzleHunt2022-Puzzle07-2.jpg"
+                        src="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022/main/assets/PuzzleHunt2022-Puzzle07-2.jpg"
                     />
                     <img
                         alt="puzzle-07-pic-3"
-                        src="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022-media/main/PuzzleHunt2022-Puzzle07-3.jpg"
+                        src="https://cdn.statically.io/gh/ToreyHilbert/puzzle-hunt-2022/main/assets/PuzzleHunt2022-Puzzle07-3.jpg"
                     />
                 </StyledStack>
             </AccordionDetails>
@@ -45,7 +45,7 @@ export const PuzzleClues = () => {
             <AccordionDetails>
             <audio controls>
                 <source
-                    src="https://raw.githubusercontent.com/ToreyHilbert/puzzle-hunt-2022-media/main/PuzzleHunt2022-Puzzle08.mp3"
+                    src="https://raw.githubusercontent.com/ToreyHilbert/puzzle-hunt-2022/main/assets/PuzzleHunt2022-Puzzle08.mp3"
                     type="audio/mpeg"
                 />
             </audio>

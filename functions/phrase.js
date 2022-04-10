@@ -53,6 +53,11 @@ const createTeamObject = team => {
 
 exports.handler = async (event, context, callback) => {
     try {
+        return {
+            statusCode: 400,
+            message: "The Puzzle Hunt 2022 is over. See you again next year!",
+        }
+
         const data = JSON.parse(event.body)
 
         if (!(data.phrase in phraseDict)) {

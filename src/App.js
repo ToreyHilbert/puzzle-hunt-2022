@@ -29,7 +29,7 @@ export const App = () => {
             <Typography variant="body1">
               Welcome to the Puzzle Hunt 2022 page!<br/>
               <a
-                href="https://raw.githubusercontent.com/ToreyHilbert/puzzle-hunt-2022-media/main/PuzzleHunt2022-Packet.pdf"
+                href="https://raw.githubusercontent.com/ToreyHilbert/puzzle-hunt-2022/main/assets/PuzzleHunt2022-Packet.pdf"
                 rel="noreferrer noopener"
                 target="_blank"
                 download
