@@ -54,7 +54,11 @@ exports.handler = async (event, context, callback) => {
     try {
         return {
             statusCode: 400,
-            message: "The Puzzle Hunt 2022 is over. See you again next year!",
+            body: JSON.stringify({
+                message:
+                    "The Puzzle Hunt 2022 is over. See you again next year!",
+                phrase: data.phrase,
+            }),
         };
 
         const data = JSON.parse(event.body);
