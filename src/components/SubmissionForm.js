@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { 
+import { useState } from "react";
+import {
     Alert,
     Snackbar,
     Card,
@@ -11,13 +11,12 @@ import {
     Select,
     MenuItem,
     Button,
-} from '@mui/material'
+} from "@mui/material";
 
-
-import axios from 'axios'
+import axios from "axios";
 
 export const SubmissionForm = ({ teamNames, setTeamData }) => {
-    const [phraseText, setPhraseText] = useState("")
+    const [phraseText, setPhraseText] = useState("");
     const [selectedTeam, setSelectedTeam] = useState("");
 
     const [snackbarState, setSnackbarState] = useState({
@@ -25,63 +24,62 @@ export const SubmissionForm = ({ teamNames, setTeamData }) => {
         severity: "error",
         message: "",
     });
-  
+
     const handleSnackbarClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setSnackbarState({
-        ...snackbarState,
-          open: false,
-      })
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setSnackbarState({
+            ...snackbarState,
+            open: false,
+        });
     };
 
     const submitForm = async () => {
         if (selectedTeam === "") {
-            return
+            return;
         }
 
         if (phraseText === "Example Text") {
             setSnackbarState({
                 open: true,
                 severity: "info",
-                message: "You successfully submitted the example phrase!"
-            })
+                message: "You successfully submitted the example phrase!",
+            });
 
-            return
+            return;
         }
 
-        const submittedPhraseText = phraseText
-        setPhraseText("")
+        const submittedPhraseText = phraseText;
+        setPhraseText("");
 
         try {
-            const response = await axios.post('/.netlify/functions/phrase', {
+            const response = await axios.post("/.netlify/functions/phrase", {
                 team: selectedTeam,
                 phrase: submittedPhraseText,
-            })
+            });
 
             setSnackbarState({
                 open: true,
                 severity: "success",
-                message: "Success!"
-            })
-            setTeamData(response.data)
+                message: "Success!",
+            });
+            setTeamData(response.data);
         } catch (error) {
-            console.log("Error in submission form!", error.response)
+            console.log("Error in submission form!", error.response);
 
             setSnackbarState({
                 open: true,
                 severity: "error",
                 message: error.response.data.message,
-            })
+            });
         }
-
-    }
+    };
 
     return (
         <Card>
-            <Snackbar 
+            <Snackbar
                 open={snackbarState.open}
                 autoHideDuration={6000}
                 onClose={handleSnackbarClose}
@@ -95,34 +93,37 @@ export const SubmissionForm = ({ teamNames, setTeamData }) => {
             </Snackbar>
             <CardContent>
                 <Stack spacing={2}>
-                    <TextField 
-                        sx={{minWidth: 300}}
+                    <TextField
+                        sx={{ minWidth: 300 }}
                         label="Solution phrase"
                         variant="standard"
                         value={phraseText}
-                        onChange={event => setPhraseText(event.target.value)}
+                        onChange={(event) => setPhraseText(event.target.value)}
                     />
-                    <FormControl sx={{minWidth: 300}}>
-                        <InputLabel id="team-select-label">Selected team</InputLabel>
+                    <FormControl sx={{ minWidth: 300 }}>
+                        <InputLabel id="team-select-label">
+                            Selected team
+                        </InputLabel>
                         <Select
                             labelId="team-select-label"
                             value={selectedTeam}
                             label="Team"
-                            onChange={event => setSelectedTeam(event.target.value)}
+                            onChange={(event) =>
+                                setSelectedTeam(event.target.value)
+                            }
                         >
-                            {teamNames.map((team, i) =>
-                                <MenuItem key={i} value={team}>{team}</MenuItem>
-                            )}
+                            {teamNames.map((team, i) => (
+                                <MenuItem key={i} value={team}>
+                                    {team}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
-                    <Button 
-                        variant="contained"
-                        onClick={submitForm}
-                    >
+                    <Button variant="contained" onClick={submitForm}>
                         Submit!
                     </Button>
                 </Stack>
             </CardContent>
         </Card>
-    )
-}
+    );
+};
